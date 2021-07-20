@@ -1,8 +1,32 @@
+
+require('dotenv').config();
+
 const express = require("express")
 const app = express()
+
+const session = require('express-session');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const logger = require('morgan');
+const line = require('@line/bot-sdk');
+const cors = require('cors');
+const mysql = require('mysql');
 const PORT = process.env.PORT || 8080
 
+const connection = mysql.createConnection({
+    host: 'mysql-khajonsak.alwaysdata.net',
+    user: 'khajonsak',
+    password: '08052543pok',
+    database: 'khajonsak_01'
 
+});
+
+const config = {
+    channelAccessToken: process.env.CHANNEL_ACCESS_TOKEN,
+    channelSecret: process.env.CHANNEL_SECRET,
+};
+const app = express();
 app.get("/", (req, res)=>{
     res.json({result: "ok", data:[1,2,3,4,5]})
 })
